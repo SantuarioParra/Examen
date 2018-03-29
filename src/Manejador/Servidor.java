@@ -1,8 +1,6 @@
 package Manejador;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
@@ -23,10 +21,13 @@ public class Servidor {
         //Declaracion del servidor y su puerto
         ServerSocket servidor= new ServerSocket(3000);
         System.out.println("Servidor Iniciado...");
+
         for(;;){
             Socket conexion= servidor.accept();
             System.out.println("Conexion Establecida... "+ conexion.getInetAddress()+" :"+conexion.getPort());
             BufferedReader inDatos = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+            PrintWriter outDatos= new PrintWriter(new OutputStreamWriter(conexion.getOutputStream()));
+
             while (true){                                           //ciclo para estar leyendo lo que el cliente envia
                 comandoBruto=inDatos.readLine();
                 comandoBruto=comandoBruto.toLowerCase();
@@ -34,16 +35,19 @@ public class Servidor {
                 System.out.println(">> "+comandoLimpio[0]+" Recibido");
 
                 //Inicio condicionales del servidor para las acciones de Create,Update,Delete,Insert,Show
-                if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){
+
+                if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){//if create table
 
                     if(basesDatos.containsKey(comandoLimpio[2])){
 
-                        System.out.println("Ya existe una base de datos con nombre similar.");
-
+                        outDatos.println("Ya existe una base de datos con nombre similar, seleccione un nuevo nombre.");
+                        outDatos.flush();
                     }else{
 
                         basesDatos.put(comandoLimpio[2],tablas);
                         System.out.println(basesDatos.get(comandoLimpio[2]));
+                        outDatos.println("Base de datos "+comandoLimpio[2]+" creada.");
+                        outDatos.flush();
 
                         for (HashMap.Entry entry : basesDatos.entrySet()) {
                             System.out.println(entry.getKey() + ", " + entry.getValue());
