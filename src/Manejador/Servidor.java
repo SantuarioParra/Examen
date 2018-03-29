@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Servidor {
-    
+    HashMap<String,HashMap<String,LinkedList<Object>>> schemas= new HashMap<String,HashMap<String,LinkedList<Object>>> ();
+    HashMap<String,LinkedList<Object>> tablas= new HashMap<String,LinkedList<Object>>();
+
     public static void main(String []args) throws IOException {
         String comando="";
         ServerSocket servidor= new ServerSocket(3000);
@@ -20,7 +22,9 @@ public class Servidor {
             BufferedReader inDatos = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
             while (true){
                 comando=inDatos.readLine();
+                comando=comando.toLowerCase();
                 System.out.println(">> "+comando+" Recibido");
+
 
             }
         }
