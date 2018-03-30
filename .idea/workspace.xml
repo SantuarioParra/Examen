@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1250b7f-59b9-45c1-90dc-c181c4f63098" name="Default" comment="">
+    <list default="true" id="c1250b7f-59b9-45c1-90dc-c181c4f63098" name="Default" comment="Agregado metodo para crear tabla vacia, falta crear objetos dinamicos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/Examen/Manejador/Servidor.class" afterPath="$PROJECT_DIR$/out/production/Examen/Manejador/Servidor.class" />
       <change beforePath="$PROJECT_DIR$/src/Manejador/Servidor.java" afterPath="$PROJECT_DIR$/src/Manejador/Servidor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -18,8 +19,8 @@
       <file leaf-file-name="Servidor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Manejador/Servidor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="83" column="25" lean-forward="true" selection-start-line="83" selection-start-column="25" selection-end-line="83" selection-end-column="25" />
+            <state relative-caret-position="442">
+              <caret line="96" column="25" lean-forward="true" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -288,7 +289,7 @@
       <updated>1522346061627</updated>
       <workItem from="1522346064704" duration="8473000" />
       <workItem from="1522359254435" duration="8000" />
-      <workItem from="1522359671286" duration="12088000" />
+      <workItem from="1522359671286" duration="14716000" />
     </task>
     <task id="LOCAL-00001" summary="Todos los comandos que entren seran primero pasados a lowercase para evitar errores">
       <created>1522353542942</created>
@@ -318,11 +319,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522373985401</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Agregado metodo para crear tabla vacia, falta crear objetos dinamicos">
+      <created>1522375690378</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1522375690378</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20569000" />
+    <option name="totallyTimeSpent" value="23197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
@@ -365,7 +373,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Todos los comandos que entren seran primero pasados a lowercase para evitar errores" />
     <MESSAGE value="Agregada forma para crear schemas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Agregada forma para crear schemas" />
+    <MESSAGE value="Agregado metodo para crear tabla vacia, falta crear objetos dinamicos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregado metodo para crear tabla vacia, falta crear objetos dinamicos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -424,8 +433,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Manejador/Servidor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="83" column="25" lean-forward="true" selection-start-line="83" selection-start-column="25" selection-end-line="83" selection-end-column="25" />
+        <state relative-caret-position="442">
+          <caret line="96" column="25" lean-forward="true" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
