@@ -13,7 +13,6 @@ public class Servidor {
         //Declaracion de los hash basesde datos y tablas
         HashMap<String,HashMap<String,LinkedList<Object>>> basesDatos= new HashMap<> ();
 
-        HashMap<String,LinkedList<Object>> tablas= new HashMap<>();
 
         //Fin de declaracion de los hash basesde datos y tablas
 
@@ -69,14 +68,20 @@ public class Servidor {
 
                 }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("table")==0){
 
-
+                    if(basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])){
+                        outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
+                        outDatos.flush();
+                    }else {
                         System.out.println(comandoLimpio[2]);
-                        basesDatos.get(nombreSchema).put(comandoLimpio[2],new LinkedList<>());
-                        outDatos.println("Tabla "+comandoLimpio[2]+" creada en la base de datos "+nombreSchema);
+                        basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
+                        outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
+                        System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
                         outDatos.flush();
 
-                    for (HashMap.Entry entry : basesDatos.entrySet()) {
-                        System.out.println(entry.getKey() + ", " + entry.getValue());
+
+                        for (HashMap.Entry entry : basesDatos.entrySet()) {
+                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                        }
                     }
 
                 }
