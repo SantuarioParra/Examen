@@ -26,7 +26,6 @@ public class Cliente {
             comando=inDatos.readLine();
             outDatos.println(comando);
             outDatos.flush();
-
             respuesta=rDatos.readLine();
             System.out.println(">> "+ respuesta);
         }
