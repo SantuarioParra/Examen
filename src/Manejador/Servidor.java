@@ -1,5 +1,6 @@
 package Manejador;
 
+import javax.tools.JavaFileObject;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -72,24 +73,27 @@ public class Servidor {
                     outDatos.flush();
 
                 }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("table")==0){//if Crear tabla en base de datos seleccionada
+
+
                     Compilador compilador=new Compilador();
                     if(basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])){
                         outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
                         outDatos.flush();
                     }else {
-
-                        System.out.println(comandoLimpio[2]);
-                        basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
-                        outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
-                        System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
-                        outDatos.flush();
-
                         //Creacion del objeto dinamico
                         String[]datos;
                         String parametros="";
                            datos=comandoBrutoCopia.split(" ");
                            if((datos.length-3)%2==0){
-                               compilador.compilar(comandoLimpio[2],datos);
+                               System.out.println(comandoLimpio[2]);
+                               basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
+                               JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2],datos);
+                               Iterable<? extends JavaFileObject> files = Arrays.asList(file);
+                               compilador.compile(files);
+
+                               outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
+                               System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
+                               outDatos.flush();
                            }else{
                                outDatos.println("La sentencia tiene algun error");
                                outDatos.flush();

@@ -94,7 +94,7 @@ public class Compilador{
         JavaFileObject file = null;
         try
         {
-            file = new InMemoryJavaFileObject("/*basedatos.Tablas*/"+nombre, writer.toString());
+            file = new InMemoryJavaFileObject("/Manejador/"+nombre, writer.toString());
         }
         catch (Exception exception)
         {
