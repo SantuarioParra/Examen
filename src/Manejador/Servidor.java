@@ -20,6 +20,7 @@ public class Servidor {
         // Strings para validar y almacenar el comando ingresado por el usuario
         String nombreSchema="";
         String comandoBruto="";
+        String comandoBrutoCopia="";
         String comandoLimpio[];
 
         //Declaracion del servidor y su puerto
@@ -34,8 +35,10 @@ public class Servidor {
 
             while (true){                                           //ciclo para estar leyendo lo que el cliente envia
                 comandoBruto=inDatos.readLine();
+                comandoBrutoCopia=comandoBruto;
                 comandoBruto=comandoBruto.toLowerCase();
                 comandoLimpio=comandoBruto.split(" ");
+
                 System.out.println(">> "+comandoLimpio[0]+" "+comandoLimpio[1]+" Recibido");
 
                 //Inicio condicionales del servidor para las acciones de Create,Update,Delete,Insert,Show
@@ -69,7 +72,7 @@ public class Servidor {
                     outDatos.flush();
 
                 }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("table")==0){//if Crear tabla en base de datos seleccionada
-
+                    Compilador compilador=new Compilador();
                     if(basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])){
                         outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
                         outDatos.flush();
@@ -80,21 +83,17 @@ public class Servidor {
                         outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
                         System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
                         outDatos.flush();
+
                         //Creacion del objeto dinamico
-                        String[]datos= new String[comandoLimpio.length-6];
-                        Stack<String> parentesis= new Stack<>();
-                        for (int i=3; i<comandoLimpio.length;i++) {
-                            if(comandoLimpio[i].compareTo("(")==0){
-                                parentesis.push(comandoLimpio[i]);
-                            }else if(comandoLimpio[i].compareTo(")")==0){
-                                parentesis.pop();
-                            }else{
-                                datos[i]=comandoLimpio[i];
-                            }
-                        }
-                        for(int i=0;i<datos.length;i++){
-                            System.out.println(datos[i]);
-                        }
+                        String[]datos;
+                        String parametros="";
+                           datos=comandoBrutoCopia.split(" ");
+                           if((datos.length-3)%2==0){
+                               compilador.compilar(comandoLimpio[2],datos);
+                           }else{
+                               outDatos.println("La sentencia tiene algun error");
+                               outDatos.flush();
+                           }
                         //fin creaccion del objeto dinamico
 
 
