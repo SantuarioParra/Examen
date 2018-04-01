@@ -41,7 +41,7 @@ public class Compilador{
     /** java File Object represents an in-memory java source file <br>
      * so there is no need to put the source file on hard disk  **/
     public static class InMemoryJavaFileObject extends SimpleJavaFileObject{
-        private String contents = null;
+        public String contents = null;
 
         public InMemoryJavaFileObject(String className, String contents) throws Exception
         {
@@ -120,10 +120,11 @@ public class Compilador{
     }
 
     /** run class from the compiled byte code file by URLClassloader */
-    public static void realizarOperacion(String nombre,String []metodosDatos){
+    public Object realizarOperacion(String nombre,String []metodosDatos){
         // Create a File object on the root of the directory
         // containing the class file
         File file = new File(classOutputFolder);
+        Object tabla=new Object();
 
         try
         {
@@ -142,20 +143,24 @@ public class Compilador{
 
             String ClassName = nombre;
             Class<?> tClass = Class.forName(ClassName); // convert string classname to class
-            Object tabla = tClass.newInstance(); // invoke empty constructor
+            tabla = tClass.newInstance(); // invoke empty constructor
             System.out.println("Genero bien instancia "+tabla.getClass().getName());
             String methodName = "";
 
+            for(int i=3;i<metodosDatos.length;i=i+2){
+
             // with single parameter, return void
-            methodName = "setNombre";
+            methodName = "set"+metodosDatos[i];
             Method setNameMethod = tabla.getClass().getMethod(methodName, String.class);
-            setNameMethod.invoke(tabla, "Juena"); // pass arg
+            setNameMethod.invoke(tabla, metodosDatos[i+1]); // pass arg
 
             // without parameters, return string
-            methodName = "getNombre";
+            methodName = "get"+metodosDatos[i];
             Method getNameMethod = tabla.getClass().getMethod(methodName);
             String name = (String) getNameMethod.invoke(tabla); // explicit cast
             System.out.println("Valor devuelto por metodo:"+name);
+
+            }
 
         }
         catch (MalformedURLException e)
@@ -168,6 +173,7 @@ public class Compilador{
         {
             ex.printStackTrace();
         }
+        return tabla;
     }
 
     /*

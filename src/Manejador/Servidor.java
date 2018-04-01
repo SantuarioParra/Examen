@@ -4,10 +4,7 @@ import javax.tools.JavaFileObject;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 public class Servidor {
     public static void main(String []args) throws IOException {
@@ -104,7 +101,6 @@ public class Servidor {
                         } else {
                             //Creacion del objeto dinamico
                             String[] datos;
-                            String parametros = "";
                             datos = comandoBrutoCopia.split(" ");
                             if ((datos.length - 3) % 2 == 0) {
                                 System.out.println(comandoLimpio[2]);
@@ -155,6 +151,38 @@ public class Servidor {
                     }else {
                         outDatos.println("La tabla no existe en la base de datos");
                         outDatos.flush();
+                    }
+
+                }else if(comandoLimpio[0].compareTo("insert")==0&&comandoLimpio[1].compareTo("into")==0){               //if insert
+
+                    if(nombreSchema.compareTo("")==0){                  //if verifica si esta seleccionada una base de datos
+                        outDatos.println("No se ha seleccionado una base de datos");
+                        outDatos.flush();
+                    }else {
+
+                        if(basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])==true){
+                            String[] metodosDatos;
+                            metodosDatos = comandoBrutoCopia.split(" ");
+                            if ((metodosDatos.length - 3) % 2 == 0) {
+                                System.out.println("Nombre Tabla a insertar: "+comandoLimpio[2]);
+                                Compilador compilador=new Compilador();
+                                basesDatos.get(nombreSchema).get(comandoLimpio[2]).add(compilador.realizarOperacion(comandoLimpio[2],metodosDatos));
+
+                                outDatos.println("Datos insertados correctamente en la tabla: "+comandoLimpio[2]+", de la base de datos: "+ nombreSchema);
+                                System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
+                                outDatos.flush();
+                            } else {
+                                outDatos.println("La sentencia tiene algun error");
+                                outDatos.flush();
+                            }
+
+
+                        }else{
+                            outDatos.println("La tabla a insertar no existe");
+                            outDatos.flush();
+                        }
+
+
                     }
 
                 }
