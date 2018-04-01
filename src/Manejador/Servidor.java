@@ -87,36 +87,41 @@ public class Servidor {
 
 
                     Compilador compilador=new Compilador();
-                    if(basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])){
-                        outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
+                    if(nombreSchema.compareTo("")==0){
+                        outDatos.println("No se ha seleccionado una base de datos");
                         outDatos.flush();
                     }else {
-                        //Creacion del objeto dinamico
-                        String[]datos;
-                        String parametros="";
-                           datos=comandoBrutoCopia.split(" ");
-                           if((datos.length-3)%2==0){
-                               System.out.println(comandoLimpio[2]);
-                               basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
-                               JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2],datos);
-                               Iterable<? extends JavaFileObject> files = Arrays.asList(file);
-                               compilador.compile(files);
 
-                               outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
-                               System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
-                               outDatos.flush();
-                           }else{
-                               outDatos.println("La sentencia tiene algun error");
-                               outDatos.flush();
-                           }
-                        //fin creaccion del objeto dinamico
+                        if (basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])) {
+                            outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
+                            outDatos.flush();
+                        } else {
+                            //Creacion del objeto dinamico
+                            String[] datos;
+                            String parametros = "";
+                            datos = comandoBrutoCopia.split(" ");
+                            if ((datos.length - 3) % 2 == 0) {
+                                System.out.println(comandoLimpio[2]);
+                                basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
+                                JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2], datos);
+                                Iterable<? extends JavaFileObject> files = Arrays.asList(file);
+                                compilador.compile(files);
+
+                                outDatos.println("Tabla " + comandoLimpio[2] + " creada en la base de datos " + nombreSchema);
+                                System.out.println("Clave tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
+                                outDatos.flush();
+                            } else {
+                                outDatos.println("La sentencia tiene algun error");
+                                outDatos.flush();
+                            }
+                            //fin creaccion del objeto dinamico
 
 
-                        for (HashMap.Entry entry : basesDatos.entrySet()) {
-                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                            for (HashMap.Entry entry : basesDatos.entrySet()) {
+                                System.out.println(entry.getKey() + ", " + entry.getValue());
+                            }
                         }
                     }
-
                 }else if(comandoLimpio[0].compareTo("delete")==0&&comandoLimpio[1].compareTo("database")==0){ //if borrar base de datos
 
                     if (basesDatos.containsKey(comandoLimpio[2])==true){
