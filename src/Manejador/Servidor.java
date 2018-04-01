@@ -80,14 +80,20 @@ public class Servidor {
 
                     nombreSchema="";
                     nombreSchema=comandoLimpio[2];
-                    outDatos.println("Base de datos: "+nombreSchema+" establecida");
-                    outDatos.flush();
+                    if(basesDatos.containsKey(nombreSchema)==true){                         //verifica si existe la base de datos
+                        outDatos.println("Base de datos: "+nombreSchema+" establecida");
+                        outDatos.flush();
+                    }else{
+                        outDatos.println("La base de datos: "+nombreSchema+" no existe creela primero o seleccione una base existente");
+                        outDatos.flush();
+                    }
+
 
                 }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("table")==0){//if Crear tabla en base de datos seleccionada
 
 
                     Compilador compilador=new Compilador();
-                    if(nombreSchema.compareTo("")==0){
+                    if(nombreSchema.compareTo("")==0){                  //if verifica si esta seleccionada una base de datos
                         outDatos.println("No se ha seleccionado una base de datos");
                         outDatos.flush();
                     }else {
@@ -152,7 +158,6 @@ public class Servidor {
                     }
 
                 }
-
 
             }
         }

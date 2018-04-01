@@ -12,7 +12,7 @@ public class Cliente {
         System.out.println();
         System.out.println("#########################################");
         System.out.println("<---------> A-DATABASE 2018-2019 <-------->");
-        System.out.println("RicoSoft,Inc.");
+        System.out.println("RicoSoft,Inc. SantuarioSQL");
         System.out.println();
 
         BufferedReader inDatos= new BufferedReader( new InputStreamReader(System.in));

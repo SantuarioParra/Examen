@@ -68,24 +68,22 @@ public class Compilador{
         out.println("public class "+nombre+"  implements Serializable {");
 
         for(int i=3;i<datos.length;i=i+2){
-            out.println(datos[i]+" "+datos[i+1]+";");
-            parametros=parametros+","+datos[i]+" "+datos[i+1];
+            out.println(datos[i+1]+" "+datos[i]+";");
         }
-        parametros=parametros.substring(1,parametros.length());
         out.println("  public "+nombre+"() {");
 
         for(int i=3;i<datos.length;i=i+2){
-            out.println("this."+datos[i+1]+"="+datos[i+1]+";");
+            out.println("this."+datos[i]+"="+datos[i]+";");
         }
         out.println("  }");
 
         for(int i=3;i<datos.length;i=i+2){
-            out.println("public "+datos[i]+" get"+datos[i+1]+"(){");
-            out.println("return "+datos[i+1]+";");
+            out.println("public "+datos[i+1]+" get"+datos[i]+"(){");
+            out.println("return "+datos[i]+";");
             out.println("}");
 
-            out.println("public void set"+datos[i+1]+"("+datos[i]+" "+datos[i+1]+"){");
-            out.println("this."+datos[i+1]+"="+datos[i+1]+";");
+            out.println("public void set"+datos[i]+"("+datos[i+1]+" "+datos[i]+"){");
+            out.println("this."+datos[i]+"="+datos[i]+";");
             out.println("}");
         }
 
@@ -122,7 +120,58 @@ public class Compilador{
     }
 
     /** run class from the compiled byte code file by URLClassloader */
-    public static void runIt(String nombre){
+    public static void realizarOperacion(String nombre,String []metodosDatos){
+        // Create a File object on the root of the directory
+        // containing the class file
+        File file = new File(classOutputFolder);
+
+        try
+        {
+            // Convert File to a URL
+            URL url = file.toURL(); // file:/classes/demo
+            URL[] urls = new URL[] { url };
+            System.out.println("Dentro del metodo invoke..");
+            // Create a new class loader with the directory
+            ClassLoader loader = new URLClassLoader(urls);
+            System.out.println("Crea cargador de clase");
+            // Load in the class; Class.childclass should be located in
+            // the directory file:/class/demo/
+            Class thisClass = loader.loadClass(nombre);
+            Class params[] = {};
+            System.out.println("Cargo bien la clase");
+
+            String ClassName = nombre;
+            Class<?> tClass = Class.forName(ClassName); // convert string classname to class
+            Object tabla = tClass.newInstance(); // invoke empty constructor
+            System.out.println("Genero bien instancia "+tabla.getClass().getName());
+            String methodName = "";
+
+            // with single parameter, return void
+            methodName = "setNombre";
+            Method setNameMethod = tabla.getClass().getMethod(methodName, String.class);
+            setNameMethod.invoke(tabla, "Juena"); // pass arg
+
+            // without parameters, return string
+            methodName = "getNombre";
+            Method getNameMethod = tabla.getClass().getMethod(methodName);
+            String name = (String) getNameMethod.invoke(tabla); // explicit cast
+            System.out.println("Valor devuelto por metodo:"+name);
+
+        }
+        catch (MalformedURLException e)
+        {
+        }
+        catch (ClassNotFoundException e)
+        {
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    /*
+    public static void realizarOperacion(String nombre){
         // Create a File object on the root of the directory
         // containing the class file
         File file = new File(classOutputFolder);
@@ -148,7 +197,8 @@ public class Compilador{
             Object instance = thisClass.newInstance();
             Method thisMethod = thisClass.getDeclaredMethod("setNombre", params);
             */
-            /*******************/
+
+            /*
             String ClassName = nombre;
             Class<?> tClass = Class.forName(ClassName); // convert string classname to class
             Object tabla = tClass.newInstance(); // invoke empty constructor
@@ -167,7 +217,7 @@ public class Compilador{
             System.out.println("Valor devuelto por metodo:"+name);
 //            String p = "Juancho";
 //            Method thisMethod = thisClass.getDeclaredMethod("setNombre", params)
-            /*********************/
+            /*
             // run the testAdd() method on the instance:
 //            thisMethod.invoke(instance, paramsObj);
 //            Method m1 = thisClass.getMethod("getNombre", null);
@@ -185,7 +235,7 @@ public class Compilador{
             ex.printStackTrace();
         }
     }
-
+    */
 
     public static void main(String[] args) throws Exception
     {
@@ -199,7 +249,7 @@ public class Compilador{
         compile(files);
 
         //3.Load your class by URLClassLoader, then instantiate the instance, and call method by reflection
-        runIt(nombre);
+        //runIt(nombre);
         System.out.println("fin del programa..");
     }
 }
