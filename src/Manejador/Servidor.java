@@ -35,16 +35,27 @@ public class Servidor {
             PrintWriter outDatos= new PrintWriter(new OutputStreamWriter(conexion.getOutputStream()));
 
             while (true){                                           //ciclo para estar leyendo lo que el cliente envia
+
                 comandoBruto=inDatos.readLine();
                 comandoBrutoCopia=comandoBruto;
                 comandoBruto=comandoBruto.toLowerCase();
                 comandoLimpio=comandoBruto.split(" ");
 
-                System.out.println(">> "+comandoLimpio[0]+" "+comandoLimpio[1]+" Recibido");
-
+                if(comandoLimpio.length==1){
+                    System.out.println(">> "+comandoLimpio[0]+" Recibido");
+                }else {
+                    System.out.println(">> " + comandoLimpio[0] + " " + comandoLimpio[1] + " Recibido");
+                }
                 //Inicio condicionales del servidor para las acciones de Create,Update,Delete,Insert,Show
 
-                if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){//if Creacion de tabla
+
+                if(comandoLimpio[0].compareTo("exit")==0){
+                    System.out.println(comandoLimpio[0]);
+                    outDatos.println("Sesion terminada");
+                    outDatos.flush();
+                    servidor.close();
+
+                }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){//if Creacion de tabla
 
                     if(basesDatos.containsKey(comandoLimpio[2])){
 

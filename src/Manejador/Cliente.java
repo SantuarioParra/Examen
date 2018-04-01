@@ -20,14 +20,20 @@ public class Cliente {
 
         BufferedReader rDatos = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 
-        while (true){
+        while (true) {
 
             System.out.print(">> ");
-            comando=inDatos.readLine();
+            comando = inDatos.readLine();
             outDatos.println(comando);
             outDatos.flush();
-            respuesta=rDatos.readLine();
-            System.out.println(">> "+ respuesta);
+            respuesta = rDatos.readLine();
+            if(respuesta.compareTo("Sesion terminada")==0){
+                System.out.println(">> " + respuesta);
+            }else {
+                System.out.println(">> " + respuesta);
+            }
+
         }
+
     }
 }
