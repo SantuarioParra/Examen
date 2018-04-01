@@ -49,13 +49,13 @@ public class Servidor {
                 //Inicio condicionales del servidor para las acciones de Create,Update,Delete,Insert,Show
 
 
-                if(comandoLimpio[0].compareTo("exit")==0){
+                if(comandoLimpio[0].compareTo("exit")==0){//if cerrar sesion
                     System.out.println(comandoLimpio[0]);
                     outDatos.println("Sesion terminada");
                     outDatos.flush();
                     servidor.close();
 
-                }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){//if Creacion de tabla
+                }else if(comandoLimpio[0].compareTo("create")==0&&comandoLimpio[1].compareTo("database")==0){//if Creacion de base de datos
 
                     if(basesDatos.containsKey(comandoLimpio[2])){
 
@@ -76,7 +76,7 @@ public class Servidor {
 
                     }
 
-                }else if(comandoLimpio[0].compareTo("set")==0&&comandoLimpio[1].compareTo("database")==0){// if poner(Set) base de datos
+                }else if(comandoLimpio[0].compareTo("set")==0&&comandoLimpio[1].compareTo("database")==0){// if Seleccionar base de datos
 
                     nombreSchema="";
                     nombreSchema=comandoLimpio[2];
@@ -115,6 +115,35 @@ public class Servidor {
                         for (HashMap.Entry entry : basesDatos.entrySet()) {
                             System.out.println(entry.getKey() + ", " + entry.getValue());
                         }
+                    }
+
+                }else if(comandoLimpio[0].compareTo("delete")==0&&comandoLimpio[1].compareTo("database")==0){ //if borrar base de datos
+
+                    if (basesDatos.containsKey(comandoLimpio[2])==true){
+
+                        basesDatos.remove(comandoLimpio[2]);
+                        for (HashMap.Entry entry : basesDatos.entrySet()) {
+                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                        }
+                        outDatos.println("La base de datos: "+comandoLimpio[2]+" fue eliminada exitosamente");
+                        outDatos.flush();
+                    }else{
+                        outDatos.println("La base de datos no existe");
+                        outDatos.flush();
+                    }
+                }else if(comandoLimpio[0].compareTo("delete")==0&&comandoLimpio[1].compareTo("table")==0){// if borrar tablas
+
+                    if (basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])){
+                        basesDatos.get(nombreSchema).remove(comandoLimpio[2]);
+
+                        for (HashMap.Entry entry : basesDatos.entrySet()) {
+                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                        }
+                        outDatos.println("La tabla : "+comandoLimpio[2]+" fue eliminada exitosamente");
+                        outDatos.flush();
+                    }else {
+                        outDatos.println("La tabla no existe en la base de datos");
+                        outDatos.flush();
                     }
 
                 }
