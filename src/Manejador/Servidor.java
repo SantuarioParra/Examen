@@ -10,7 +10,7 @@ public class Servidor {
     public static void main(String []args) throws IOException {
 
         //Declaracion de los hash basesde datos y tablas
-        HashMap<String,HashMap<String,LinkedList<Object>>> basesDatos= new HashMap<> ();
+        HashMap<String,HashMap<String,ArrayList<Object>>> basesDatos= new HashMap<> ();
 
 
         //Fin de declaracion de los hash basesde datos y tablas
@@ -105,7 +105,7 @@ public class Servidor {
                             datos = comandoBrutoCopia.split(" ");
                             if ((datos.length - 3) % 2 == 0) {
                                 System.out.println(comandoLimpio[2]);
-                                basesDatos.get(nombreSchema).put(comandoLimpio[2], new LinkedList<>());
+                                basesDatos.get(nombreSchema).put(comandoLimpio[2], new ArrayList<Object>());
                                 JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2], datos);
                                 Iterable<? extends JavaFileObject> files = Arrays.asList(file);
                                 compilador.compile(files);
