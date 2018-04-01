@@ -7,7 +7,7 @@ public class Cliente {
     public static void main(String []args) throws IOException {
         String comando="";
         String respuesta="";
-        Socket conexion= new Socket("localhost",3000);
+        Socket conexion= new Socket("localhost",2000);
         System.out.println("Conexion establecida...");
         System.out.println();
         System.out.println("#########################################");

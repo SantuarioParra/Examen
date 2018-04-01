@@ -23,7 +23,7 @@ public class Servidor {
         String columnas[];
 
         //Declaracion del servidor y su puerto
-        ServerSocket servidor= new ServerSocket(3000);
+        ServerSocket servidor= new ServerSocket(2000);
         System.out.println("Servidor Iniciado...");
 
         for(;;){
@@ -170,7 +170,9 @@ public class Servidor {
                                 basesDatos.get(nombreSchema).get(comandoLimpio[2]).add(compilador.realizarOperacion(comandoLimpio[2],metodosDatos));
 
                                 outDatos.println("Datos insertados correctamente en la tabla: "+comandoLimpio[2]+", de la base de datos: "+ nombreSchema);
-                                System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]));
+                                System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]).toString());
+                                System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).toString());
+
                                 outDatos.flush();
                             } else {
                                 outDatos.println("La sentencia tiene algun error");
