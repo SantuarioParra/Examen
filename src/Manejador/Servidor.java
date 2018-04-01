@@ -185,6 +185,15 @@ public class Servidor {
 
                     }
 
+                }else if(comandoLimpio[0].compareTo("select")==0){
+                    if(nombreSchema.compareTo("")==0){                  //if verifica si esta seleccionada una base de datos
+                        outDatos.println("No se ha seleccionado una base de datos");
+                        outDatos.flush();
+                    }else {
+
+
+                    }
+
                 }
 
             }

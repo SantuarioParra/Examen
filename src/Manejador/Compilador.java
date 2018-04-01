@@ -176,8 +176,60 @@ public class Compilador{
         return tabla;
     }
 
+    public String realizarConsulta(String nombre, String []metodosDatos){
+        // Create a File object on the root of the directory
+        // containing the class file
+        File file = new File(classOutputFolder);
+        String resultado="";
+
+        try
+        {
+            // Convert File to a URL
+            URL url = file.toURL(); // file:/classes/demo
+            URL[] urls = new URL[] { url };
+            System.out.println("Dentro del metodo invoke..");
+            // Create a new class loader with the directory
+            ClassLoader loader = new URLClassLoader(urls);
+            System.out.println("Crea cargador de clase");
+            // Load in the class; Class.childclass should be located in
+            // the directory file:/class/demo/
+            Class thisClass = loader.loadClass(nombre);
+            Class params[] = {};
+            System.out.println("Cargo bien la clase");
+
+            String ClassName = nombre;
+            Class<?> tClass = Class.forName(ClassName); // convert string classname to class
+            Object tabla = tClass.newInstance(); // invoke empty constructor
+            System.out.println("Genero bien instancia "+tabla.getClass().getName());
+            String methodName = "";
+
+            for(int i=3;i<metodosDatos.length;i=i+2){
+
+                // without parameters, return string
+                methodName = "get"+metodosDatos[i];
+                Method getNameMethod = tabla.getClass().getMethod(methodName);
+                String name = (String) getNameMethod.invoke(tabla); // explicit cast
+                System.out.println("Valor devuelto por metodo:"+name);
+                resultado=resultado+","+name;
+
+            }
+
+        }
+        catch (MalformedURLException e)
+        {
+        }
+        catch (ClassNotFoundException e)
+        {
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return resultado;
+    }
+
     /*
-    public static void realizarOperacion(String nombre){
+    public static void realizarConsulta(String nombre){
         // Create a File object on the root of the directory
         // containing the class file
         File file = new File(classOutputFolder);
