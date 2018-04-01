@@ -20,6 +20,7 @@ public class Servidor {
         String comandoBruto="";
         String comandoBrutoCopia="";
         String comandoLimpio[];
+        String columnas[];
 
         //Declaracion del servidor y su puerto
         ServerSocket servidor= new ServerSocket(3000);
@@ -94,7 +95,7 @@ public class Servidor {
                         outDatos.println("No se ha seleccionado una base de datos");
                         outDatos.flush();
                     }else {
-
+                        columnas=comandoLimpio;
                         if (basesDatos.get(nombreSchema).containsKey(comandoLimpio[2])) {
                             outDatos.println("Ya existe una tabla en la base de datos con nombre similar, seleccione un nuevo nombre.");
                             outDatos.flush();
@@ -153,7 +154,7 @@ public class Servidor {
                         outDatos.flush();
                     }
 
-                }else if(comandoLimpio[0].compareTo("insert")==0&&comandoLimpio[1].compareTo("into")==0){               //if insert
+                }else if(comandoLimpio[0].compareTo("insert")==0&&comandoLimpio[1].compareTo("into")==0){       //if insert en la tabla
 
                     if(nombreSchema.compareTo("")==0){                  //if verifica si esta seleccionada una base de datos
                         outDatos.println("No se ha seleccionado una base de datos");
@@ -185,11 +186,25 @@ public class Servidor {
 
                     }
 
-                }else if(comandoLimpio[0].compareTo("select")==0){
+                }else if(comandoLimpio[0].compareTo("select")==0){              //if select
+                    String resultado="";
+                    String[] metodosDatos;
+                    metodosDatos = comandoBrutoCopia.split(" ");
+                    Compilador compilador=new Compilador();
                     if(nombreSchema.compareTo("")==0){                  //if verifica si esta seleccionada una base de datos
                         outDatos.println("No se ha seleccionado una base de datos");
                         outDatos.flush();
                     }else {
+
+
+                        if(comandoLimpio[1].compareTo("from")==0){
+                            resultado=compilador.realizarConsulta(comandoLimpio[2],metodosDatos);
+                            outDatos.println("Los valores de la consulta son:"+resultado);
+                            outDatos.flush();
+                        }else if(comandoLimpio[1].compareTo("*")==0&&comandoLimpio[2].compareTo("from")==0){
+
+
+                        }
 
 
                     }
