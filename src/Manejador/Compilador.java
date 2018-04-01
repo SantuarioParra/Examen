@@ -125,7 +125,6 @@ public class Compilador{
         // containing the class file
         File file = new File(classOutputFolder);
         Object tabla=new Object();
-
         try
         {
             // Convert File to a URL
@@ -161,16 +160,12 @@ public class Compilador{
             System.out.println("Valor devuelto por metodo:"+name);
 
             }
-
         }
-        catch (MalformedURLException e)
-        {
+        catch (MalformedURLException e) {
         }
-        catch (ClassNotFoundException e)
-        {
+        catch (ClassNotFoundException e) {
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             ex.printStackTrace();
         }
         return tabla;

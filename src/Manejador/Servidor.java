@@ -186,7 +186,9 @@ public class Servidor {
 
                     }
 
-                }else if(comandoLimpio[0].compareTo("select")==0){              //if select
+                }
+                /*
+                else if(comandoLimpio[0].compareTo("select")==0){              //if select
                     String resultado="";
                     String[] metodosDatos;
                     metodosDatos = comandoBrutoCopia.split(" ");
@@ -210,6 +212,7 @@ public class Servidor {
                     }
 
                 }
+                */
 
             }
         }
