@@ -206,7 +206,7 @@ public class Servidor {
 
                         if(comandoLimpio[1].compareTo("from")==0){
                             resultado=compilador.realizarConsulta(comandoLimpio[2],metodosDatos, basesDatos.get(nombreSchema).get(comandoLimpio[2]));
-                            outDatos.println("Los valores de la consulta son:"+resultado);
+                            outDatos.println("Los valores de la consulta son:  "+resultado);
                             outDatos.flush();
                         }else if(comandoLimpio[1].compareTo("*")==0&&comandoLimpio[2].compareTo("from")==0){
                             outDatos.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[3]).toString());

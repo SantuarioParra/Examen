@@ -155,7 +155,7 @@ public class Compilador {
         try {
             Class<?> tClass = null;
             try {
-                tClass = new URLClassLoader(new URL[] {new File(classOutputFolder).toURL()}).loadClass("jedi");
+                tClass = new URLClassLoader(new URL[] {new File(classOutputFolder).toURL()}).loadClass(nombre);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -204,7 +204,24 @@ public class Compilador {
     }
 
     public String realizarConsulta(String nombre, String[] metodosDatos,ArrayList<Object> objects) {
+        StringBuilder response= new StringBuilder();
+        try {
+            String methodName = "";
+            for (int j=1;j<objects.size();j++){
+                response.append("| ");
+                for(int i = 3; i < metodosDatos.length; i ++) {
+                    methodName = "get" + metodosDatos[i];
+                    response.append(metodosDatos[i]).append(": ");
+                    Method getNameMethod = objects.get(j).getClass().getMethod(methodName);
+                    response.append(getNameMethod.invoke(objects.get(j))).append(" ");
+                }
+                response.append(" |");
 
+            }
+
+        } catch (Exception var19) {
+            var19.printStackTrace();
+        }
             /*/
             for(int i = 3; i < metodosDatos.length; i += 2) {
                 methodName = "get" + metodosDatos[i];
@@ -214,7 +231,7 @@ public class Compilador {
                 resultado = resultado + "," + name;
             }
             // */
-        return resultado;
+        return response.toString();
     }
 
     public static void main(String[] args) throws Exception {
