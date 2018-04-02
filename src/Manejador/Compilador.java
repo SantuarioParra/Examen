@@ -11,13 +11,17 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.logging.LoggingMXBean;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import javax.tools.JavaCompiler;
@@ -26,7 +30,6 @@ import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import javax.tools.JavaCompiler.CompilationTask;
-import javax.tools.JavaFileObject.Kind;
 
 public class Compilador {
     private static String classOutputFolder = Compilador.class.getResource("build/classes").getPath();
@@ -34,20 +37,22 @@ public class Compilador {
     public Compilador() {
     }
 
-    public static JavaFileObject compilarObjeto(String nombre, String[] datos) throws IOException {
+    public static JavaFileObject compilarObjeto(String nombre, String[] datos, ArrayList<Object> objects) throws IOException {
         String parametros = "";
+        HashMap<String,Class<?>> tipos=new HashMap<>();
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
         out.println("import java.io.*;");
         System.out.println("import java.io.*;");
         out.println("public class " + nombre + "  implements Serializable {");
         System.out.println("public class " + nombre + "  implements Serializable {");
-
         int i;
         for(i = 3; i < datos.length; i += 2) {
             out.println(datos[i+1] + " " + datos[i] + ";");
+            tipos.put(datos[i],parseType(datos[i+1]));
             System.out.println(datos[i+1] + " " + datos[i] + ";");
         }
+        objects.add(tipos);
 
         out.println("  public " + nombre + "() {");
         System.out.println("  public " + nombre + "() {");
@@ -82,11 +87,11 @@ public class Compilador {
         System.out.print("return ");
         for(i = 3; i < datos.length; i += 2) {
             if(i==datos.length-2){
-                out.print("\""+datos[i]+"\"+this."+datos[i]);
-                System.out.print("\""+datos[i]+"\"+this."+datos[i]);
+                out.print("\" "+datos[i]+": \"+this."+datos[i]);
+                System.out.print("\" "+datos[i]+": \"+this."+datos[i]);
             }else{
-                out.print("\""+datos[i]+"\"+this."+datos[i]+" + ");
-                System.out.print("\""+datos[i]+"\"+this."+datos[i]+" + ");
+                out.print(" \""+datos[i]+": \"+this."+datos[i]+" + ");
+                System.out.print(" \""+datos[i]+": \"+this."+datos[i]+"+ \" , \" + ");
             }
 
         }
@@ -108,6 +113,36 @@ public class Compilador {
 
         return file;
     }
+    public static Class<?> parseType(final String className) {
+        switch (className) {
+            case "boolean":
+                return boolean.class;
+            case "byte":
+                return byte.class;
+            case "short":
+                return short.class;
+            case "int":
+                return int.class;
+            case "long":
+                return long.class;
+            case "float":
+                return float.class;
+            case "double":
+                return double.class;
+            case "char":
+                return char.class;
+            case "void":
+                return void.class;
+            default:
+                String fqn = className.contains(".") ? className : "java.lang.".concat(className);
+                try {
+                    return Class.forName(fqn);
+                } catch (ClassNotFoundException ex) {
+                    throw new IllegalArgumentException("Class not found: " + fqn);
+                }
+        }
+    }
+
 
     public static void compile(Iterable<? extends JavaFileObject> files) {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -122,42 +157,57 @@ public class Compilador {
 
     }
 
-    public Object realizarOperacion(String nombre, String[] metodosDatos) {
-        File file = new File(classOutputFolder);
-        Object tabla = new Object();
-
+    public Object realizarOperacion(String nombre, String[] metodosDatos,HashMap<String,Class<?>> tipos) {
+        Object clase = new Object();
         try {
-            URL url = file.toURL();
-            URL[] urls = new URL[]{url};
-            System.out.println("Dentro del metodo invoke..");
-            ClassLoader loader = new URLClassLoader(urls);
-            System.out.println("Crea cargador de clase");
-            loader.loadClass(nombre);
-            Class[] params = new Class[0];
-            System.out.println("Cargo bien la clase");
-            Class<?> tClass = Class.forName(nombre);
-            tabla = tClass.newInstance();
-            System.out.println("Genero bien instancia " + tabla.getClass().getName());
+            Class<?> tClass = null;
+            try {
+                tClass = new URLClassLoader(new URL[] {new File(classOutputFolder).toURL()}).loadClass("jedi");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            System.out.println("clase cargada"+tClass.getName());
+            clase = tClass.newInstance();
+            System.out.println("Genero bien instancia " + clase.getClass().getName());
             String methodName = "";
 
             for(int i = 3; i < metodosDatos.length; i += 2) {
                 methodName = "set" + metodosDatos[i];
-                Method setNameMethod = tabla.getClass().getMethod(methodName, String.class);
-                setNameMethod.invoke(tabla, metodosDatos[i + 1]);
+
+                Method setNameMethod = clase.getClass().getMethod(methodName,tipos.get(metodosDatos[i]));
+                Class <?> tipo=tipos.get(metodosDatos[i]);
+                if(tipo.equals(String.class)){
+                    setNameMethod.invoke(clase,metodosDatos[i+1]);
+                }else{
+                    if(tipo.equals(boolean.class)){
+                        setNameMethod.invoke(clase,Boolean.parseBoolean(metodosDatos[i+1]));
+                    }else if(tipo.equals(byte.class)){
+                        setNameMethod.invoke(clase,Byte.parseByte(metodosDatos[i+1]));
+                    } else if (tipo.equals(short.class)) {
+                        setNameMethod.invoke(clase,Short.parseShort(metodosDatos[i+1]));
+                    }else if(tipo.equals(int.class)){
+                        setNameMethod.invoke(clase,Integer.parseInt(metodosDatos[i+1]));
+                    }else if(tipo.equals(long.class)){
+                        setNameMethod.invoke(clase, Long.parseLong(metodosDatos[i+1]));
+                    }else if(tipo.equals(float.class)){
+                        setNameMethod.invoke(clase, Float.parseFloat(metodosDatos[i+1]));
+                    }else if (tipo.equals(double.class)){
+                        setNameMethod.invoke(clase, Double.parseDouble(metodosDatos[i+1]));
+                    }else if (tipo.equals(char.class)){
+                        setNameMethod.invoke(clase, (metodosDatos[i+1]).charAt(0));
+                    }
+                }
+
                 methodName = "get" + metodosDatos[i];
-                Method getNameMethod = tabla.getClass().getMethod(methodName);
-                String name = (String)getNameMethod.invoke(tabla);
-                System.out.println("Valor devuelto por metodo:" + name);
+                Method getNameMethod = clase.getClass().getMethod(methodName);
             }
         } catch (MalformedURLException var17) {
-            ;
-        } catch (ClassNotFoundException var18) {
-            ;
+            var17.printStackTrace();
         } catch (Exception var19) {
             var19.printStackTrace();
         }
 
-        return tabla;
+        return clase;
     }
 
     public String realizarConsulta(String nombre, String[] metodosDatos) {
@@ -199,9 +249,9 @@ public class Compilador {
     public static void main(String[] args) throws Exception {
         String nombre = "tabla1";
         String[] datos = new String[]{"algo", "algo", "algo", "String", "Nombre", "String", "Apellido"};
-        JavaFileObject file = compilarObjeto(nombre, datos);
-        Iterable<? extends JavaFileObject> files = Arrays.asList(file);
-        compile(files);
+        //JavaFileObject file = compilarObjeto(nombre, datos, basesDatos.get(nombreSchema).get(comandoLimpio[2]));
+        //Iterable<? extends JavaFileObject> files = Arrays.asList(file);
+        //compile(files);
         System.out.println("fin del programa..");
     }
 

@@ -106,7 +106,7 @@ public class Servidor {
                             if ((datos.length - 3) % 2 == 0) {
                                 System.out.println(comandoLimpio[2]);
                                 basesDatos.get(nombreSchema).put(comandoLimpio[2], new ArrayList<Object>());
-                                JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2], datos);
+                                JavaFileObject file = compilador.compilarObjeto(comandoLimpio[2], datos,basesDatos.get(nombreSchema).get(comandoLimpio[2]));
                                 Iterable<? extends JavaFileObject> files = Arrays.asList(file);
                                 compilador.compile(files);
 
@@ -167,11 +167,17 @@ public class Servidor {
                             if ((metodosDatos.length - 3) % 2 == 0) {
                                 System.out.println("Nombre Tabla a insertar: "+comandoLimpio[2]);
                                 Compilador compilador=new Compilador();
-                                basesDatos.get(nombreSchema).get(comandoLimpio[2]).add(compilador.realizarOperacion(comandoLimpio[2],metodosDatos));
+                                System.out.println(compilador.realizarOperacion(comandoLimpio[2],metodosDatos,(HashMap<String,Class<?>>)basesDatos.get(nombreSchema).get(comandoLimpio[2]).get(0)));
+                                basesDatos.get(nombreSchema).get(comandoLimpio[2]).add(compilador.realizarOperacion(comandoLimpio[2],metodosDatos,(HashMap<String,Class<?>>)basesDatos.get(nombreSchema).get(comandoLimpio[2]).get(0)));
 
+                                /*/ add a / to uncomment this block
+                                djs l = new djs();
+                                l.setName("armin");
+                                Object lo=l;
+                                basesDatos.get(nombreSchema).get(comandoLimpio[2]).add(lo);
+                                //*/
                                 outDatos.println("Datos insertados correctamente en la tabla: "+comandoLimpio[2]+", de la base de datos: "+ nombreSchema);
                                 System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[2]).toString());
-                                System.out.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).toString());
 
                                 outDatos.flush();
                             } else {
