@@ -203,24 +203,9 @@ public class Compilador {
         return clase;
     }
 
-    public String realizarConsulta(String nombre, String[] metodosDatos) {
-        File file = new File(classOutputFolder);
-        String resultado = "";
+    public String realizarConsulta(String nombre, String[] metodosDatos,ArrayList<Object> objects) {
 
-        try {
-            URL url = file.toURL();
-            URL[] urls = new URL[]{url};
-            System.out.println("Dentro del metodo invoke..");
-            ClassLoader loader = new URLClassLoader(urls);
-            System.out.println("Crea cargador de clase");
-            loader.loadClass(nombre);
-            Class[] params = new Class[0];
-            System.out.println("Cargo bien la clase");
-            Class<?> tClass = Class.forName(nombre);
-            Object tabla = tClass.newInstance();
-            System.out.println("Genero bien instancia " + tabla.getClass().getName());
-            String methodName = "";
-
+            /*/
             for(int i = 3; i < metodosDatos.length; i += 2) {
                 methodName = "get" + metodosDatos[i];
                 Method getNameMethod = tabla.getClass().getMethod(methodName);
@@ -228,14 +213,7 @@ public class Compilador {
                 System.out.println("Valor devuelto por metodo:" + name);
                 resultado = resultado + "," + name;
             }
-        } catch (MalformedURLException var17) {
-            ;
-        } catch (ClassNotFoundException var18) {
-            ;
-        } catch (Exception var19) {
-            var19.printStackTrace();
-        }
-
+            // */
         return resultado;
     }
 

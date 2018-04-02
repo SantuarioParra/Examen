@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c1250b7f-59b9-45c1-90dc-c181c4f63098" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/Manejador/Cliente.java" afterPath="$PROJECT_DIR$/src/Manejador/Cliente.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/Examen/Manejador/Servidor.class" afterPath="$PROJECT_DIR$/out/production/Examen/Manejador/Servidor.class" />
       <change beforePath="$PROJECT_DIR$/src/Manejador/Compilador.java" afterPath="$PROJECT_DIR$/src/Manejador/Compilador.java" />
       <change beforePath="$PROJECT_DIR$/src/Manejador/Servidor.java" afterPath="$PROJECT_DIR$/src/Manejador/Servidor.java" />
     </list>
@@ -37,8 +37,8 @@
       <file leaf-file-name="Servidor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Manejador/Servidor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="207" column="83" lean-forward="false" selection-start-line="207" selection-start-column="83" selection-end-line="207" selection-end-column="83" />
+            <state relative-caret-position="102">
+              <caret line="204" column="27" lean-forward="true" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,7 +49,7 @@
       <file leaf-file-name="prueba.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Manejador/prueba.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="791">
+            <state relative-caret-position="411">
               <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -93,10 +93,10 @@
       <file leaf-file-name="Compilador.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Manejador/Compilador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3066">
-              <caret line="57" column="58" lean-forward="false" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
+            <state relative-caret-position="990">
+              <caret line="215" column="17" lean-forward="false" selection-start-line="215" selection-start-column="17" selection-end-line="215" selection-end-column="17" />
               <folding>
-                <element signature="e#0#11267#0" expanded="true" />
+                <element signature="e#0#10406#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,10 +145,10 @@
         <option value="$PROJECT_DIR$/src/tabla1.java" />
         <option value="$PROJECT_DIR$/src/jedi.java" />
         <option value="$PROJECT_DIR$/src/Manejador/djs.java" />
-        <option value="$PROJECT_DIR$/src/Manejador/Compilador.java" />
         <option value="$PROJECT_DIR$/src/Manejador/prueba.java" />
         <option value="$PROJECT_DIR$/src/Manejador/Cliente.java" />
         <option value="$PROJECT_DIR$/src/Manejador/Servidor.java" />
+        <option value="$PROJECT_DIR$/src/Manejador/Compilador.java" />
       </list>
     </option>
   </component>
@@ -497,7 +497,7 @@
       <workItem from="1522563639771" duration="362000" />
       <workItem from="1522564280749" duration="708000" />
       <workItem from="1522576161724" duration="5242000" />
-      <workItem from="1522598502488" duration="22563000" />
+      <workItem from="1522598502488" duration="23382000" />
     </task>
     <task id="LOCAL-00001" summary="Todos los comandos que entren seran primero pasados a lowercase para evitar errores">
       <created>1522353542942</created>
@@ -625,11 +625,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522629546222</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="ya funciona insert y va mostrado contenido de la tabla crear la carpeta asegurarse de tener la siguiente estructura de carpetas out/production/Examen/Manejador/build/classes">
+      <created>1522638062974</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1522638062974</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102964000" />
+    <option name="totallyTimeSpent" value="103783000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="709" extended-state="6" />
@@ -643,7 +650,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30926216" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296582" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30926216" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23390895" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -746,7 +753,7 @@
         <state relative-caret-position="2159">
           <caret line="127" column="40" lean-forward="false" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -844,7 +851,7 @@
         <state relative-caret-position="203">
           <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -874,7 +881,7 @@
         <state relative-caret-position="2839">
           <caret line="167" column="29" lean-forward="false" selection-start-line="167" selection-start-column="29" selection-end-line="167" selection-end-column="29" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -904,7 +911,7 @@
         <state relative-caret-position="2839">
           <caret line="167" column="29" lean-forward="false" selection-start-line="167" selection-start-column="29" selection-end-line="167" selection-end-column="29" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -934,7 +941,7 @@
         <state relative-caret-position="2159">
           <caret line="127" column="40" lean-forward="false" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1103,16 +1110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Manejador/prueba.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Manejador/Cliente.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="693">
@@ -1125,8 +1122,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Manejador/Servidor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="207" column="83" lean-forward="false" selection-start-line="207" selection-start-column="83" selection-end-line="207" selection-end-column="83" />
+        <state relative-caret-position="102">
+          <caret line="204" column="27" lean-forward="true" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Manejador/prueba.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1135,10 +1142,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Manejador/Compilador.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3066">
-          <caret line="57" column="58" lean-forward="false" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
+        <state relative-caret-position="990">
+          <caret line="215" column="17" lean-forward="false" selection-start-line="215" selection-start-column="17" selection-end-line="215" selection-end-column="17" />
           <folding>
-            <element signature="e#0#11267#0" expanded="true" />
+            <element signature="e#0#10406#0" expanded="true" />
           </folding>
         </state>
       </provider>
