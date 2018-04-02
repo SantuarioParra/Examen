@@ -194,9 +194,7 @@ public class Servidor {
 
                     }
 
-                }
-                /*
-                else if(comandoLimpio[0].compareTo("select")==0){              //if select
+                } else if(comandoLimpio[0].compareTo("select")==0){              //if select
                     String resultado="";
                     String[] metodosDatos;
                     metodosDatos = comandoBrutoCopia.split(" ");
@@ -206,22 +204,17 @@ public class Servidor {
                         outDatos.flush();
                     }else {
 
-
                         if(comandoLimpio[1].compareTo("from")==0){
-                            resultado=compilador.realizarConsulta(comandoLimpio[2],metodosDatos);
+                            resultado=compilador.realizarConsulta(comandoLimpio[2],metodosDatos, basesDatos.get(nombreSchema).get(comandoLimpio[3]));
                             outDatos.println("Los valores de la consulta son:"+resultado);
                             outDatos.flush();
                         }else if(comandoLimpio[1].compareTo("*")==0&&comandoLimpio[2].compareTo("from")==0){
-
-
+                            outDatos.println("Contenido de la  tabla: " + basesDatos.get(nombreSchema).get(comandoLimpio[3]).toString());
+                            outDatos.flush();
                         }
-
-
                     }
 
                 }
-                */
-
             }
         }
     }

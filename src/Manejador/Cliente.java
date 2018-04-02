@@ -32,7 +32,6 @@ public class Cliente {
             }else {
                 System.out.println(">> " + respuesta);
             }
-
         }
 
     }

@@ -57,13 +57,6 @@ public class Compilador {
         out.println("  public " + nombre + "() {");
         System.out.println("  public " + nombre + "() {");
 
-        /*//
-        for(i = 3; i < datos.length; i += 2) {
-            out.println("this." + datos[i] + "=" + datos[i] + ";");
-            System.out.println("this." + datos[i] + "=" + datos[i] + ";");
-        }
-        //*/
-
         out.println("  }");
         System.out.println("  }");
 
